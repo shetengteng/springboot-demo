@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.stt.mapper.PersonMapper">
+
+    <!--增加后返回主键在对象中-->
+    <insert id="add" parameterType="Person" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tbl_person(name,age,birth,registerTime,salary)
+        VALUES(#{name},#{age},#{birth},#{registerTime},#{salary});
+    </insert>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM tbl_person WHERE id = #{id};
+    </delete>
+
+    <!--注意，这里的set应该改成动态的-->
+    <update id="update" parameterType="Person" >
+        UPDATE tbl_person
+        SET name = #{name}, age = #{age}, birth = #{birth}, registerTime = #{registerTime}, salary = #{salary}
+        WHERE id = #{id};
+    </update>
+
+    <select id="getPersonById" parameterType="Person" resultType="Person">
+        SELECT * FROM tbl_person WHERE id = #{id};
+    </select>
+
+    <!-- 自动将*转换为List对象集合 -->
+    <!--<select id="getAllPerson" resultType="Person">-->
+        <!--SELECT * FROM tbl_person;-->
+    <!--</select>-->
+
+</mapper>
